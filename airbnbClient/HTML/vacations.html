@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../JS/ajaxCalls.js"></script>
+    <script>
+
+
+
+        $(document).ready(function () {
+            let port = "/cgroup73"
+            server = `http://localhost:7220/HTML/Vacations.html`;
+
+            var FlatId = getParameterByName('flatId');
+            $('#FLATID').val(FlatId);
+
+            var UserID = getParameterByName('userId');
+            $("#USERID").val(UserID);
+
+            $("#Form").submit(validateForm);
+
+            $("#Vacbtn").click(function () {
+                api = server + "api/vacations/" + FlatID;
+                ajaxCall("GET", api, "", printVacs, getECB);
+            });
+
+            getVac();
+
+        });
+
+        function getParameterByName(name) {
+            var urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        function validateForm() {
+            var startDate = new Date($("#STARTDATE").val());
+            var endDate = new Date($("#ENDDATE").val());
+            var time = (endDate.getTime() - startDate.getTime());
+            var Days = Math.round(time / (1000 * 3600 * 24));
+
+            if (endDate <= startDate) {
+                alert("End date should be greater than the start date.");
+            }
+            else if (Days > 20) {
+                alert("Vacation is Up to 20 days.");
+            }
+            else {
+                AddVac();
+                return false;
+            }
+
+        }
+
+        function getVac() {
+            api = server + "api/vacations/";
+            ajaxCall("GET", api, "", getSCB, getECB);
+        }
+
+        function getSCB(vacations) {
+            console.log(vacations);
+        }
+
+        function getECB(errorFromServer) {
+            console.log(errorFromServer);
+        }
+
+
+
+        function AddVac() {
+            //start = new Date($("#STARTDATE").val());
+            //end = new Date($("#ENDDATE").val())
+            let Vac = {
+                id: $("#ID").val(),
+                userId: $("#USERID").val(),
+                flatId: getParameterByName('id'),
+                startDate: $("#STARTDATE").val(),
+                endDate: $("#ENDDATE").val() ,
+            }
+
+
+            let api = server + "api/vacations"
+
+            ajaxCall("POST", api, JSON.stringify(Vac), postSCB, postECB);
+
+            swal("Submitted to the server!", "Great Job", "success");
+
+            return false;
+
+        }
+        function printVacs(x) {
+            let word = "";
+            let flat = getParameterByName('id')
+            for (num in x) {
+              
+                word += '<div><table border="1" width="50%">';
+                word += `<tr align="center"><td> FlatId : ${flat}</td></tr>`;
+                word += `<tr align="center"><td> ID : ${x[num].id}</td></tr>`;
+                word += `<tr align="center"><td> UserId : ${x[num].userId}</td></tr>`;
+                word += `<tr align="center"><td> StartDate : ${x[num].startDate}</td></tr>`;
+                word += `<tr align="center"><td> EndDate : ${x[num].endDate}</td></tr>`;
+                word += `</table></br>`;
+            }
+
+            $("#ph").html(word);
+
+        }
+
+        function postSCB(objectFromServer) {
+                console.log(objectFromServer);
+        }
+
+
+        function postECB(errorFromServer) {
+            console.log(errorFromServer);
+        }
+
+
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="form-group">
+            <label for="FLATID">FlatID:</label>
+            <input type="text" class="form-control" id="FLATID" disabled>
+        </div>
+        <form id="Form">
+
+            <div class="form-group">
+                <label for="ID">id:</label>
+                <input type="text" class="form-control" id="ID" placeholder="Enter the id" required>
+            </div>
+            <div class="form-group">
+                <label for="USERID">UserId:</label>
+                <input type="text" class="form-control" id="USERID" placeholder="Enter the UserId" required>
+            </div>
+
+            <div class="form-group">
+                <label for="STARTDATE">StartDate:</label>
+                <input type="date" class="form-control" id="STARTDATE" placeholder="yy-mm-dd" required />
+            </div>
+
+            <div class="form-group">
+                <label for="ENDDATE">EndDate:</label>
+                <input type="date" class="form-control" id="ENDDATE" placeholder="yy-mm-dd" required />
+            </div>
+            <input type="submit" value="Order" id="submitBTN" />
+            <input type="button" value="Get All My Vacations" id="Vacbtn" />
+        </form>
+    </div>
+    <br />
+    <div id="ph" class="container"> </div>
+</body>
+</html>

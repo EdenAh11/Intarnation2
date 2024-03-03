@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../JS/ajaxCalls.js"></script>
+
+    <title>דף הרשמה</title>
+    <script>
+
+        usess = [];
+        $(document).ready(function () {
+            let port = 7220;
+            server = `https://localhost:${port}/`
+            $("#Form").submit(submit);
+
+            getUsers();
+
+        })
+        function getUsers() {
+            api = server + "api/Users";
+            ajaxCall("GET", api, "", getSCB, getECB)
+
+        }
+
+        function getSCB(uses) {
+            usess = uses;
+            console.log(uses);//מערך הרשומים
+            console.log(usess);//מערך הרשומים
+            console.log(uses[uses.length - 1]);//האחרון שנירשם
+
+        }
+        function getECB(uses) { console.log(uses); }
+
+        function submit() {
+            let use = {
+                firstName: $("#Name").val(),
+                familyName: $("#FamilyName").val(),
+                email: $("#Email").val(),
+                password: $("#Password").val(),
+            }
+            let api = server + "api/Users"
+
+            ajaxCall("POST", api, JSON.stringify(use), postSCB, postECB);
+          
+            let team = "/cgroup73"
+
+            return false;
+
+        }
+
+        function postSCB(uses) {
+            console.log(uses); 
+        }
+        function postECB(uses) { console.log(uses); }
+        function Connection() {
+
+            let EM = $("#DEmail").val();
+            let pas = $("#DPassword").val();
+            if (sessionStorage.getItem('LogIn') == null) {
+                for (us of usess) {
+
+                    if (us.email == EM && us.password == pas) {
+                        sessionStorage.setItem('LogIn', us.email)
+                        swal("Submitted to the server!", "Great Job", "success");
+                        $("#up").show();
+                        window.location.href = `http://localhost:57836/HTML/flats.html?userId=` + encodeURIComponent(us.email);
+                        return;
+                    }
+                }
+                swal("One of the details is incorrect", "Login error", "error");
+            }
+            else {
+                swal("You must disconnect from the previous user", "Login error", "error");
+            }
+
+
+        }
+        function LogOut() {
+            sessionStorage.clear();
+            swal("User logged out successfully", "", "success");
+            $("#up").hide();
+        }
+
+    </script>
+</head>
+<body>
+    <div>
+        <div class="container">
+            <div class="form-group">
+                <h2>התחברות</h2>
+
+                <div class="form-group">
+                    <label for="STARTDATE">Email:</label>
+                    <input type="email" class="form-control" id="DEmail" placeholder="Enter the Email" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="Password">Password1:</label>
+                    <input type="password" class="form-control" id="DPassword" placeholder="Enter the Password " required />
+                </div>
+                <input type="submit" onclick="Connection()" id="connection" value="התחבר" />
+                <input type="submit" onclick="LogOut()" id="LogOut" value="Log Out" />
+                <input type="submit" style="display:none" ; id="up" value="עידכון פרטים" />
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-group">
+            <h2>הרשמה</h2>
+            <form id="Form">
+
+                <div class="form-group">
+                    <label for="FirstName">FirstName:</label>
+                    <input type="text" class="form-control" id="Name" placeholder="Enter the Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="USERID">FamilyName:</label>
+                    <input type="text" class="form-control" id="FamilyName" placeholder="Enter the Family Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="STARTDATE">Email:</label>
+                    <input type="email" class="form-control" id="Email" placeholder="Enter the Email" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="Password">Password1:</label>
+                    <input type="password" class="form-control" id="Password" placeholder="Enter the Password " required />
+                </div>
+                <input type="submit" onabort="" value="Add users" id="submitBTN" />
+
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../JS/ajaxCalls.js"></script>
+    <script>
+
+      
+
+        $(document).ready(function () {
+            let port = "/cgroup73"
+            server = `https://localhost:7220/`;
+            $("#Form").submit(submit);
+            getFlat();
+
+        })
+
+        $(document).on("click", ".btn", function () {
+            var flatId = $(this).attr("id");
+            var UserID = getParameterByName('userId');
+            let team = "/cgroup73"
+            window.location.href = `http://localhost:57836/HTML/vacations.html?flatId=` + encodeURIComponent(flatId)+`&&userId = ${UserID}`
+        })
+
+        function getParameterByName(name) {
+            var urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        
+        function getFlat() {
+            api = server + "api/AirBNB";
+            ajaxCall("GET", api, "", getSCB, getECB)
+          
+        }
+
+        function getSCB(flights) {
+            console.log(flights);
+        }
+
+        function getECB(errorFromServer) {
+            console.log(errorFromServer);
+        }
+  
+     
+
+        function submit() {
+            let flat = {
+                id: $("#ID").val(),
+                city: $("#City").val(),
+                address: $("#address").val(),
+                price: $("#price").val(),
+                numberOfRooms: $("#NumberOfRooms").val(),
+            }
+
+
+            let api = server + "api/AirBNB"
+         
+            ajaxCall("POST", api, JSON.stringify(flat), postSCB, postECB);
+
+         
+
+            return false;
+
+        }
+        function printFlats(x) {
+            let word = "";
+            for (num in x) {
+                word += '<div><table border="1" width="50%">';
+                word += `<tr align="center"><td> id : ${x[num].id}</td></tr>`;
+                word += `<tr align="center"><td> city : ${x[num].city}</td></tr>`;
+                word += `<tr align="center"><td> address : ${x[num].address}</td></tr>`;
+                word += `<tr align="center"><td> price : ${x[num].price}</td></tr>`;
+                word += `<tr align="center"><td> numberOfRooms : ${x[num].numberOfRooms}</td></tr>`;
+                word += `</table>`;
+                word += `<input type="button" class="btn" id="${x[num].id}" value="Add Flat"></div></br>`;
+            }
+
+            $("#ph").html(word);
+           
+        }
+
+        function postSCB(objectFromServer) {
+            console.log(objectFromServer);
+            swal("Submitted to the server!", "Great Job", "success");
+            ajaxCall("GET", api, "", printFlats, getECB);
+
+        }
+
+        
+        function postECB(errorFromServer) {
+            console.log(errorFromServer);
+        }
+
+
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <form id="Form">
+            <div class="form-group">
+                <label for="ID">ID:</label>
+                <input type="text" class="form-control" id="ID" placeholder="Enter the ID" required>
+            </div>
+            <div class="form-group">
+                <label for="City">City:</label>
+                <input type="text" id="City" name="city" list="myCity" />
+                <datalist id="myCity" required>
+                    <option value="Tel-Aviv">
+                    <option value="Madrid">
+                    <option value="Paris">
+                    <option value="Rome">
+                    <option value="Jerusalem">
+                    <option value="Las Vegas">
+                </datalist>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" class="form-control" id="address" placeholder="Enter the Address name" maxlength="25" required>
+            </div>
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="number" class="form-control" id="price" placeholder="Enter the price" required />
+            </div>
+
+            <div class="form-group">
+                <label for="NumberOfRooms">Number Of Rooms:</label>
+                <input type="number" class="form-control" id="NumberOfRooms" placeholder="Enter the Number Of Rooms" min="0" max="8" title="Please " required />
+            </div>
+            <input type="submit" value="Order" id="submitBTN" />
+
+        </form>
+    </div>
+    <br />
+    <div id="ph" class="container"> </div>
+</body>
+</html>
