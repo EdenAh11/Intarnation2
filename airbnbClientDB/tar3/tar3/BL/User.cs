@@ -25,17 +25,18 @@
         public string Email { get => _email; set => _email = value; }
         public string Password { get => _password; set => _password = value; }
 
-        public bool Insert()
+        public int Insert()
         {
             foreach (User item in _user)
             {
                 if (item._email== _email)
                 {
-                    return false;
+                    return 0;
                 }
             }
             _user.Add(this);
-            return true;
+            UserDBservices UDBservices = new UserDBservices();
+            return UDBservices.Insert(this);
         }
 
         public List<User> Read() => _user;

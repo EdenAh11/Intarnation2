@@ -25,7 +25,8 @@
             var flatId = $(this).attr("id");
             var UserID = getParameterByName('userId');
             let team = "/cgroup73"
-            window.location.href = `http://localhost:57836/HTML/vacations.html?flatId=` + encodeURIComponent(flatId)+`&&userId = ${UserID}`
+            window.location.href = `http://localhost:57836/HTML/vacations.html?flatId=` +
+                encodeURIComponent(flatId)  + `&userId = ` + encodeURIComponent(userID);
         })
 
         function getParameterByName(name) {

@@ -14,7 +14,7 @@ namespace tar3.Controllers
         [HttpGet]
         public IEnumerable<User> Get()
         {
-            User u = new User();
+            UserDBservices u = new UserDBservices();
             return u.Read();
         }
 
@@ -27,7 +27,7 @@ namespace tar3.Controllers
 
         // POST api/<UsersController>
         [HttpPost]
-        public bool Post([FromBody] User u)
+        public int Post([FromBody] User u)
         {
             return u.Insert();
         }
