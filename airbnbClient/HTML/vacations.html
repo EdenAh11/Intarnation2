@@ -15,7 +15,7 @@
 
         $(document).ready(function () {
             let port = "/cgroup73"
-            server = `http://localhost:7220/HTML/Vacations.html`;
+            server = `https://localhost:7220/`;
 
             var FlatId = getParameterByName('flatId');
             $('#FLATID').val(FlatId);
@@ -26,7 +26,7 @@
             $("#Form").submit(validateForm);
 
             $("#Vacbtn").click(function () {
-                api = server + "api/vacations/" + FlatID;
+                api = server + `api/vacations/${FlatId}`;
                 ajaxCall("GET", api, "", printVacs, getECB);
             });
 
@@ -78,8 +78,8 @@
             //end = new Date($("#ENDDATE").val())
             let Vac = {
                 id: $("#ID").val(),
-                userId: $("#USERID").val(),
-                flatId: getParameterByName('id'),
+                userId: getParameterByName('userId'),
+                flatId: getParameterByName('flatId'),
                 startDate: $("#STARTDATE").val(),
                 endDate: $("#ENDDATE").val() ,
             }
@@ -89,20 +89,21 @@
 
             ajaxCall("POST", api, JSON.stringify(Vac), postSCB, postECB);
 
-            swal("Submitted to the server!", "Great Job", "success");
 
             return false;
 
         }
+
         function printVacs(x) {
             let word = "";
-            let flat = getParameterByName('id')
+            let flat = getParameterByName('flatId')
+            let user = getParameterByName('userId')
             for (num in x) {
               
                 word += '<div><table border="1" width="50%">';
                 word += `<tr align="center"><td> FlatId : ${flat}</td></tr>`;
                 word += `<tr align="center"><td> ID : ${x[num].id}</td></tr>`;
-                word += `<tr align="center"><td> UserId : ${x[num].userId}</td></tr>`;
+                word += `<tr align="center"><td> UserId : ${user}</td></tr>`;
                 word += `<tr align="center"><td> StartDate : ${x[num].startDate}</td></tr>`;
                 word += `<tr align="center"><td> EndDate : ${x[num].endDate}</td></tr>`;
                 word += `</table></br>`;
@@ -113,12 +114,13 @@
         }
 
         function postSCB(objectFromServer) {
-                console.log(objectFromServer);
+            console.log(objectFromServer);
+            swal("Submitted to the server!", "Great Job", "success");
         }
 
 
         function postECB(errorFromServer) {
-            console.log(errorFromServer);
+            alert("Something goes wrong!! Please check yourself");
         }
 
 
@@ -139,7 +141,7 @@
             </div>
             <div class="form-group">
                 <label for="USERID">UserId:</label>
-                <input type="text" class="form-control" id="USERID" placeholder="Enter the UserId" required>
+                <input type="text" class="form-control" id="USERID" placeholder="Enter the UserId" disabled>
             </div>
 
             <div class="form-group">

@@ -9,6 +9,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../JS/ajaxCalls.js"></script>
+
     <script>
 
       
@@ -21,12 +22,12 @@
 
         })
 
-        $(document).on("click", ".btn", function () {
+        $(document).on("click",".btn", function () {
             var flatId = $(this).attr("id");
-            var UserID = getParameterByName('userId');
-            let team = "/cgroup73"
-            window.location.href = `http://localhost:57836/HTML/vacations.html?flatId=` +
-                encodeURIComponent(flatId)  + `&userId = ` + encodeURIComponent(userID);
+            var userID = getParameterByName('userId');
+            let team = "/cgroup73";
+            window.location.href = `http://localhost:56771/HTML/vacations.html?flatId=`+encodeURIComponent(flatId) + `&userId=` + encodeURIComponent(userID);
+
         })
 
         function getParameterByName(name) {
@@ -42,7 +43,7 @@
         }
 
         function getSCB(flights) {
-            console.log(flights);
+            printFlats(flights);
         }
 
         function getECB(errorFromServer) {
@@ -88,15 +89,16 @@
         }
 
         function postSCB(objectFromServer) {
+        
             console.log(objectFromServer);
             swal("Submitted to the server!", "Great Job", "success");
             ajaxCall("GET", api, "", printFlats, getECB);
-
         }
 
         
         function postECB(errorFromServer) {
             console.log(errorFromServer);
+
         }
 
 
