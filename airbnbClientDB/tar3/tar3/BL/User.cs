@@ -41,5 +41,11 @@
 
         public List<User> Read() => _user;
 
+        public int Update()
+        {
+            UserDBservices u = new UserDBservices();
+            return u.Update(this);  
+        }
+
     }
 }

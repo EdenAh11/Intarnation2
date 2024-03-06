@@ -33,9 +33,10 @@ namespace tar3.Controllers
         }
 
         // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{email}")]
+        public int Put([FromBody] User u)
         {
+            return u.Update();
         }
 
         // DELETE api/<UsersController>/5

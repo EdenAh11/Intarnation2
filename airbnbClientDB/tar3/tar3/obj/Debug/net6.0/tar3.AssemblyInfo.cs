@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tar3")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2e6aa920d4318b1676c423be04ef90722cd53503")]
 [assembly: System.Reflection.AssemblyProductAttribute("tar3")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tar3")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

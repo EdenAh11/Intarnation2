@@ -111,9 +111,9 @@ public class FlatsDBservices
             while (dataReader.Read())
             {
                 Flat f = new Flat();
-                f.Id = (dataReader["id"]).ToString();
-                f.City = (dataReader["city"]).ToString();
-                f.Address = (dataReader["address"]).ToString();
+                f.Id = dataReader["id"].ToString();
+                f.City = dataReader["city"].ToString();
+                f.Address = dataReader["address"].ToString();
                 f.Price = Convert.ToDouble(dataReader["price"]);
                 f.NumberOfRooms = Convert.ToInt32(dataReader["number_of_rooms"]);
                 flatsList.Add(f);

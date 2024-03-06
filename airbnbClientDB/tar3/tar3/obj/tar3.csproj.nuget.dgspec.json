@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Eden_Ahrak\\Desktop\\Internation2\\airbnbClientDB\\tar3\\tar3\\tar3.csproj": {}
+    "C:\\Users\\Eden_Ahrak\\Desktop\\Q3\\Intarnation2\\airbnbClientDB\\tar3\\tar3\\tar3.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Eden_Ahrak\\Desktop\\Internation2\\airbnbClientDB\\tar3\\tar3\\tar3.csproj": {
+    "C:\\Users\\Eden_Ahrak\\Desktop\\Q3\\Intarnation2\\airbnbClientDB\\tar3\\tar3\\tar3.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Eden_Ahrak\\Desktop\\Internation2\\airbnbClientDB\\tar3\\tar3\\tar3.csproj",
+        "projectUniqueName": "C:\\Users\\Eden_Ahrak\\Desktop\\Q3\\Intarnation2\\airbnbClientDB\\tar3\\tar3\\tar3.csproj",
         "projectName": "tar3",
-        "projectPath": "C:\\Users\\Eden_Ahrak\\Desktop\\Internation2\\airbnbClientDB\\tar3\\tar3\\tar3.csproj",
+        "projectPath": "C:\\Users\\Eden_Ahrak\\Desktop\\Q3\\Intarnation2\\airbnbClientDB\\tar3\\tar3\\tar3.csproj",
         "packagesPath": "C:\\Users\\Eden_Ahrak\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Eden_Ahrak\\Desktop\\Internation2\\airbnbClientDB\\tar3\\tar3\\obj\\",
+        "outputPath": "C:\\Users\\Eden_Ahrak\\Desktop\\Q3\\Intarnation2\\airbnbClientDB\\tar3\\tar3\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Eden_Ahrak\\AppData\\Roaming\\NuGet\\NuGet.Config",
