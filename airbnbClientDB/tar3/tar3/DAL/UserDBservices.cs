@@ -114,7 +114,9 @@ public class UserDBservices
                 u.FirstName = (dataReader["firstName"]).ToString();
                 u.FamilyName = (dataReader["familyName"]).ToString();
                 u.Email = (dataReader["email"]).ToString();
-                u.Password = (dataReader["password"]).ToString();
+                u.Password = (dataReader["password"]).ToString();              
+                u.IsActive = Convert.ToBoolean(dataReader["IsActive"]);
+                u.IsAdmin = Convert.ToBoolean(dataReader["IsAdmin"]);
 
                 usersList.Add(u);
             }
@@ -136,7 +138,6 @@ public class UserDBservices
         }
         
     }
-
 
 
 
@@ -202,7 +203,11 @@ public class UserDBservices
 
         cmd.Parameters.AddWithValue("@email", user.Email);
 
-        cmd.Parameters.AddWithValue("@password", user.Password);
+        cmd.Parameters.AddWithValue("@password", user.Password); 
+
+        cmd.Parameters.AddWithValue("@IsActive", user.IsActive);
+        
+        cmd.Parameters.AddWithValue("@IsAdmin", user.IsAdmin); 
 
 
 
@@ -251,11 +256,78 @@ public class UserDBservices
 
         cmd.Parameters.AddWithValue("@password", user.Password);
 
+        cmd.Parameters.AddWithValue("@IsActive", user.IsActive);
 
-
-
-
+        cmd.Parameters.AddWithValue("@IsAdmin", user.IsAdmin);
+    
         return cmd;
     }
+
+    public List<Object> ReadAvgPricePerNight(int month)
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        List<Object> Avg = new List<Object>();
+
+        cmd = ReadAvgStoredProcedureCommand(con, "spAverage", month);
+
+        SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+        while (dataReader.Read())//run untill the table end
+        {
+            Avg.Add(new
+            {
+                city = dataReader["city"].ToString(),
+                average = Convert.ToDouble(dataReader["average"])
+            });        
+
+        }
+
+        if (con != null)
+        {
+            // close the db connection
+            con.Close();
+        }
+
+        return Avg;
+
+    }
+
+    //---------------------------------------------------------------------------------
+    // build the  users read SqlCommand using a stored procedure
+    //---------------------------------------------------------------------------------
+
+
+    SqlCommand ReadAvgStoredProcedureCommand(SqlConnection con, string spName, int month)
+    {
+
+        SqlCommand cmd = new SqlCommand(); // create the command object
+
+        cmd.Connection = con;              // assign the connection to the command object
+
+        cmd.CommandText = spName;      // can be Select, Insert, Update, Delete 
+
+        cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+
+        cmd.CommandType = System.Data.CommandType.StoredProcedure; // the type of the command, can also be text
+
+        cmd.Parameters.AddWithValue("@month", month);
+
+        return cmd;
+
+    }
+
 
 }

@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <title>DataTable Example</title>
+
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+    <style type="text/css">
+
+        button {
+            margin-left: 10px;
+        }
+
+        .colorDiv {
+            height:30px;
+            width:70px;
+            border:2px solid black
+        }
+
+        #newBTN {
+            background-color:blueviolet;
+            margin-bottom:10px;
+        }
+        #tbl {
+            border: 1px solid black; 
+            border-collapse: collapse;
+        }
+        #th, #td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+
+    </style>
+
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="../JS/ajaxCalls.js"></script>
+
+
+    <script>
+
+        // will run when the document is ready
+        $(document).ready(function () {
+            let port = 7220;
+            server = `https://localhost:${port}/`
+            mode = "";
+            $("#pForm").hide();
+            $("#newBTN").on("click", function () {
+                mode = "new";
+                ajaxCall("GET", api, "", getSuccess, error);
+                $("#pForm").show();
+            });
+            api = server + "api/Users";
+            ajaxCall("GET", api, "", getSuccess, error);
+            
+        });
+
+        $(document).on('change', 'input[type="checkbox"]', function () {
+            let data = $(this).prop('checked'); 
+            let checkboxId = $(this).attr('id');
+
+                for (user of users) {
+                    if (user.email == checkboxId) {
+                        user.isActive = data;
+                        let api = server + `api/Users/${checkboxId}`;
+
+                        ajaxCall("PUT", api, JSON.stringify(user), putSCB, putECB);
+                    }
+                
+            }
+        });
+
+        $(document).on('change', '#month-dropdown', function () {
+            let num = Number($("#month-dropdown").val());
+            let api = server + `api/Users/averagePrice`;
+
+            ajaxCall("GET", api, {month:num},getAvg,getECB)
+
+        });
+
+        function putSCB(u) { console.log(u) }
+
+        function putECB(u) { console.log(u) }
+
+        //this func get average of price by city 
+        function getAvg(avgList) {
+            let t = `<tr id="tr"><td id="td"><b>city</b></td><td id="td"><b>Average</b></td></tr>`;;
+            avgList.forEach(item => {
+                t += `<tr id="tr"><td id="td">${item.city}</td><td id="td"> ${item.average}</td></tr>`;
+            });
+         
+            $("#tbl").html(t);
+        }
+
+
+        function getECB(avg) {
+            console.log(avg)
+        }
+
+     
+        // redraw a datatable with new data
+        function redrawTable(tbl, data) {
+            tbl.clear();
+            for (var i = 0; i < data.length; i++) {
+                tbl.row.add(data[i]);
+            }
+            tbl.draw();
+        }
+
+        // this function is activated in case of a success
+        function getSuccess(usersdata) {
+           users = usersdata; // keep the users array in a global variable;
+            try{
+                tbl = $('#usersTbl').DataTable({
+                    data: usersdata,
+                    pageLength: 5,
+                    columns: [
+                      
+                        { data: "firstName" },
+                        { data: "familyName" },
+                        { data: "email" },
+                        { data: "password" },                       
+                       
+                        {
+                          data: "isActive",
+                          render: function (data, type, row, meta) {
+                            if (data == true)
+                                return `<input id="${row.email}" type="checkbox" checked />`;
+                            else
+                                return `<input id="${row.email}" type="checkbox" />`;
+                            }
+                        },
+                        {
+                            data: "isAdmin",
+                            visible: false
+                        },
+
+                    ],
+                });
+            }
+
+            catch (err) {
+                alert(err);
+            }
+        }
+
+        // this function is activated in case of a failure
+        function error(err) {
+            swal("Error: " + err );
+        }
+
+    </script>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Admin DataTable</a>
+            </div>
+        </div>
+    </nav>
+  
+    <div class="container">
+        <input type="button" value="ניהול משתמשים" class="btn btn-primary btn-lg" id="newBTN" />
+        <div id="pForm">
+
+            <table id="usersTbl" class="display nowrap" style="width:100%">
+                <thead>
+                    <tr>
+
+                        <th>FirstName</th>
+                        <th>FamilyName</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>isActive</th>
+                        <th>isAdmin</th>
+                </thead>
+            </table>
+            <div class="month-dropdown">
+                <label for="month-dropdown">Select a month:</label>
+                <select id="month-dropdown">
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+            </div>
+            <div class="container">
+                <table id="tbl">
+
+                </table>
+
+            </div>
+        </div>
+       
+    </div>
+    </body>
+</html>
+  

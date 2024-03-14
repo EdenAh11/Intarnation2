@@ -1,0 +1,17 @@
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\tar3.exe
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\appsettings.Development.json
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\appsettings.json
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\tar3.dll
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\tar3.deps.json
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\tar3.runtimeconfig.json
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\tar3.pdb
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\Microsoft.OpenApi.dll
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\System.Data.SqlClient.dll
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\runtimes\win-arm64\native\sni.dll
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\runtimes\win-x64\native\sni.dll
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\runtimes\win-x86\native\sni.dll
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Eden_Ahrak\Desktop\Intarnation2(1)\airbnbClientDB\tar3\tar3\obj\Release\net6.0\PubTmp\Out\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll

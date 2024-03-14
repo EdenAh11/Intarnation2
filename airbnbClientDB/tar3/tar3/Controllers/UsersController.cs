@@ -18,12 +18,24 @@ namespace tar3.Controllers
             return u.Read();
         }
 
+        [HttpGet("averagePrice")]
+        public object GetAvgPriceByCityAndMonth(int month)
+        {
+            UserDBservices dbs = new UserDBservices();
+
+            List<object> avgPrice = dbs.ReadAvgPricePerNight(month);
+
+            return avgPrice;
+        }
+
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
+
+       
 
         // POST api/<UsersController>
         [HttpPost]

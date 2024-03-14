@@ -16,17 +16,17 @@
 
         $(document).ready(function () {
             let port = "/cgroup73"
-            server = `https://localhost:7220/`;
+            server = ` https://localhost:7220/`;
             $("#Form").submit(submit);
             getFlat();
 
         })
 
-        $(document).on("click",".btn", function () {
+        $(document).on("click",".btn", function () {z
             var flatId = $(this).attr("id");
             var userID = getParameterByName('userId');
             let team = "/cgroup73";
-            window.location.href = `http://localhost:56771/HTML/vacations.html?flatId=`+encodeURIComponent(flatId) + `&userId=` + encodeURIComponent(userID);
+            window.location.href = ` https://localhost:7220/HTML/vacations.html?flatId=`+encodeURIComponent(flatId) + `&userId=` + encodeURIComponent(userID);
 
         })
 
@@ -74,7 +74,7 @@
         function printFlats(x) {
             let word = "";
             for (num in x) {
-                word += '<div><table border="1" width="50%">';
+                word += '<div class="left"><table border="1" width="50%">';
                 word += `<tr align="center"><td> id : ${x[num].id}</td></tr>`;
                 word += `<tr align="center"><td> city : ${x[num].city}</td></tr>`;
                 word += `<tr align="center"><td> address : ${x[num].address}</td></tr>`;

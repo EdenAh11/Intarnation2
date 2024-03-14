@@ -15,10 +15,9 @@
 
         usess = [];
         $(document).ready(function () {
-            let port = 7220;
-            server = `https://localhost:${port}/`
+            let port = cgroup73;
+            server = `https://localhost:7220/`;
          //$("#Form").submit(submit);
-
             getUsers();
 
         })
@@ -29,6 +28,8 @@
                 familyName: $("#FamilyName").val(),
                 email: $("#Email").val(),
                 password: $("#Password").val(),
+                isActive: true,
+                isAdmin: false,
             }
             let api = server + "api/Users"
 
@@ -79,16 +80,14 @@
 
         function getSCB(uses) {
             usess = uses;     
-            console.log(uses);//האחרון שנירשם
+            console.log(usess);//האחרון שנירשם
 
         }
 
         function getECB(uses) { console.log(uses); }
 
-    
-
         function postSCB(uses) {
-            console.log(uses); 
+            getUsers();
         }
 
         function postECB(uses) { console.log(uses); }
@@ -97,17 +96,30 @@
 
             let EM = $("#DEmail").val();
             let pas = $("#DPassword").val();
+            let adminE = 'admin@gmail.com';
+            let adminP = 'admin';
+
             if (sessionStorage.getItem('LogIn') == null) {
                 for (us of usess) {
+                    if (us.email == adminE && us.password == adminP) {
+                        sessionStorage.setItem('LogIn', us.email)
+                        swal("Admin Submitted to the server!", "Great Job", "success");
+                        window.location.href = `https://localhost:7220/HTML/Admin.html`;
+                    }
 
                     if (us.email == EM && us.password == pas) {
-                        sessionStorage.setItem('LogIn', us.email)
-                        swal("Submitted to the server!", "Great Job", "success");
-                        $("#connection").hide();
-                        $("#up").show();
-                        $("#out").show();
-                        $("#order").show();
-                        return;
+                        if (us.isActive == true) {
+                            sessionStorage.setItem('LogIn', us.email)
+                            swal("Submitted to the server!", "Great Job", "success");
+                            $("#connection").hide();
+                            $("#up").show();
+                            $("#out").show();
+                            $("#order").show();
+                            return;
+                        }
+                        else {
+                            swal("This user is not active", "Login error", "error");
+                        }
                     }
                 }
                 swal("One of the details is incorrect", "Login error", "error");
@@ -182,7 +194,7 @@
 
         function OrderVac() {
             let email = sessionStorage.getItem('LogIn');
-            window.location.href = `http://localhost:56771/HTML/flats.html?userId=` + encodeURIComponent(email);
+            window.location.href = `https://localhost:7220/HTML/flats.html?userId=` + encodeURIComponent(email);
         }
 
     </script>
