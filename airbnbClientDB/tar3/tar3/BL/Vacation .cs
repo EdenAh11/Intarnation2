@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Q1.BL
+namespace tar3.BL
 {
     public class Vacation
     {

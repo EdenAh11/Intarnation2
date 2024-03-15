@@ -1,4 +1,4 @@
-﻿namespace Q1.BL
+﻿namespace tar3.BL
 {
     public class User
     {

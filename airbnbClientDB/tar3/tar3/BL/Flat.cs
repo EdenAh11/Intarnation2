@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace Q1.BL
+namespace tar3.BL
 {
     public class Flat
     {

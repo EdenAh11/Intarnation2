@@ -5,7 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Data;
 using System.Text;
-using Q1.BL;
+using tar3.BL;
 
 /// <summary>
 /// DBServices is a class created by me to provides some DataBase Services

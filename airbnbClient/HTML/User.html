@@ -15,8 +15,8 @@
 
         usess = [];
         $(document).ready(function () {
-            let port = cgroup73;
-            server = `https://localhost:7220/`;
+            let port = 'cgroup73';
+            server = `https://proj.ruppin.ac.il/${port}/test2/tar1/`;
          //$("#Form").submit(submit);
             getUsers();
 
@@ -104,7 +104,7 @@
                     if (us.email == adminE && us.password == adminP) {
                         sessionStorage.setItem('LogIn', us.email)
                         swal("Admin Submitted to the server!", "Great Job", "success");
-                        window.location.href = `https://localhost:7220/HTML/Admin.html`;
+                        window.location.href = `https://proj.ruppin.ac.il/cgroup73/test2/tar3/HTML/Admin.html`;
                     }
 
                     if (us.email == EM && us.password == pas) {
@@ -194,7 +194,7 @@
 
         function OrderVac() {
             let email = sessionStorage.getItem('LogIn');
-            window.location.href = `https://localhost:7220/HTML/flats.html?userId=` + encodeURIComponent(email);
+            window.location.href = `https://proj.ruppin.ac.il/cgroup73/test2/tar3/HTML/flats.html?userId=` + encodeURIComponent(email);
         }
 
     </script>
